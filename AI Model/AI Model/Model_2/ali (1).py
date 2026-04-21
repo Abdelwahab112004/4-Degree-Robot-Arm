@@ -1,0 +1,80 @@
+import pandas as pd
+import joblib
+import os
+import numpy as np
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+
+# ===============================
+# 1) Paths
+# ===============================
+DATA_PATH = r"F:\FixedReach_Workspace_Data.csv"
+MODEL_PATH = r"F:\Final_Robot_Model.keras"
+SCALER_X_PATH = r"F:\scaler_X.pkl"
+SCALER_Y_PATH = r"F:\scaler_y.pkl"
+
+# ===============================
+# 2) Load dataset
+# ===============================
+df = pd.read_csv(DATA_PATH)
+
+# ======= Inputs & Outputs حسب header =======
+input_cols = ['X', 'Y', 'Z', 'Roll', 'Pitch', 'Yaw']
+output_cols = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5']
+
+X = df[input_cols].values
+y = np.degrees(df[output_cols].values)  # تحويل الزوايا للدرجات
+
+# ===============================
+# 3) Split dataset
+# ===============================
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# ===============================
+# 4) Scale data
+# ===============================
+scaler_X = StandardScaler()
+scaler_y = StandardScaler()
+
+X_train_scaled = scaler_X.fit_transform(X_train)
+X_test_scaled = scaler_X.transform(X_test)
+
+y_train_scaled = scaler_y.fit_transform(y_train)
+y_test_scaled = scaler_y.transform(y_test)
+
+# ===============================
+# 5) Build ANN model
+# ===============================
+model = Sequential()
+model.add(Dense(64, activation='relu', input_shape=(X_train_scaled.shape[1],)))
+model.add(Dense(64, activation='relu'))
+model.add(Dense(y_train.shape[1], activation='linear'))  # 5 outputs
+
+model.compile(optimizer='adam', loss='mse')
+
+# ===============================
+# 6) Train model
+# ===============================
+model.fit(X_train_scaled, y_train_scaled, epochs=50, batch_size=32, validation_split=0.1)
+
+# ===============================
+# 7) Save model & scalers
+# ===============================
+model.save(MODEL_PATH)
+joblib.dump(scaler_X, SCALER_X_PATH)
+joblib.dump(scaler_y, SCALER_Y_PATH)
+
+# ===============================
+# 8) Predict & تحويل النتائج للدرجات
+# ===============================
+y_pred_scaled = model.predict(X_test_scaled)
+y_pred_deg = scaler_y.inverse_transform(y_pred_scaled)  # النتيجة بالدرجات
+
+# ممكن كمان تحويل y_test_scaled للدرجات للمقارنة
+y_test_deg = scaler_y.inverse_transform(y_test_scaled)
+
+print("\n✅ Training done. Model and scalers saved in F:\\")
+print("\nPredicted angles in degrees (first 5 samples):")
+print(y_pred_deg[:5])
