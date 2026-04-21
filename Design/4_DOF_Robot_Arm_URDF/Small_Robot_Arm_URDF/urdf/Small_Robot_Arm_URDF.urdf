@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Small_Robot_Arm_URDF">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.7593 0.88191 1.2952"
+        rpy="0 0 0" />
+      <mass
+        value="0.54304" />
+      <inertia
+        ixx="0.0012059"
+        ixy="2.3772E-06"
+        ixz="1.0338E-05"
+        iyy="0.0019295"
+        iyz="-4.0417E-06"
+        izz="0.0012054" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Link_1">
+    <inertial>
+      <origin
+        xyz="-0.0019787 0.025514 0.0084214"
+        rpy="0 0 0" />
+      <mass
+        value="0.12114" />
+      <inertia
+        ixx="0.00021364"
+        ixy="2.5644E-05"
+        ixz="-2.5895E-07"
+        iyy="0.00017429"
+        iyz="9.3726E-06"
+        izz="0.00020171" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_0"
+    type="revolute">
+    <origin
+      xyz="0.76061 -1.2866 0.93518"
+      rpy="1.5708 0 -0.52589" />
+    <parent
+      link="base_link" />
+    <child
+      link="Link_1" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="3.14"
+      effort="0.864"
+      velocity="3" />
+  </joint>
+  <link
+    name="Link_2">
+    <inertial>
+      <origin
+        xyz="0.021403 0.050291 -0.038255"
+        rpy="0 0 0" />
+      <mass
+        value="0.17238" />
+      <inertia
+        ixx="0.0005914"
+        ixy="-1.6628E-06"
+        ixz="3.2927E-07"
+        iyy="0.00023108"
+        iyz="0.00025314"
+        izz="0.00041321" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_1"
+    type="revolute">
+    <origin
+      xyz="0 0.082426 0"
+      rpy="0.36244 0 0" />
+    <parent
+      link="Link_1" />
+    <child
+      link="Link_2" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0.864"
+      velocity="3" />
+  </joint>
+  <link
+    name="Link_3">
+    <inertial>
+      <origin
+        xyz="-0.011229 -0.055225 -0.0015914"
+        rpy="0 0 0" />
+      <mass
+        value="0.070504" />
+      <inertia
+        ixx="0.00015519"
+        ixy="-5.7733E-06"
+        ixz="4.4491E-07"
+        iyy="1.6277E-05"
+        iyz="-1.5317E-06"
+        izz="0.0001521" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_2"
+    type="revolute">
+    <origin
+      xyz="0 0.10627 -0.074881"
+      rpy="-1.931 -0.041344 -0.10931" />
+    <parent
+      link="Link_2" />
+    <child
+      link="Link_3" />
+    <axis
+      xyz="0.99318 0 0.11657" />
+    <limit
+      lower="0"
+      upper="3.14"
+      effort="0.864"
+      velocity="3" />
+  </joint>
+  <link
+    name="Link_4">
+    <inertial>
+      <origin
+        xyz="0.0065253 0.0048213 3.8508E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.02047" />
+      <inertia
+        ixx="7.999E-06"
+        ixy="-1.6287E-06"
+        ixz="-2.2462E-10"
+        iyy="4.9485E-06"
+        iyz="1.0257E-09"
+        izz="7.2844E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Link_4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Link_4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_3"
+    type="revolute">
+    <origin
+      xyz="-0.013022 -0.13575 -0.0015284"
+      rpy="0 0.11684 -3.1416" />
+    <parent
+      link="Link_3" />
+    <child
+      link="Link_4" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="3.14"
+      effort="0.176"
+      velocity="3" />
+  </joint>
+  <link
+    name="Gripper_Base">
+    <inertial>
+      <origin
+        xyz="-0.018023 -0.023551 0.025293"
+        rpy="0 0 0" />
+      <mass
+        value="0.016036" />
+      <inertia
+        ixx="7.3924E-06"
+        ixy="1.4571E-06"
+        ixz="-3.5735E-07"
+        iyy="2.6117E-06"
+        iyz="1.3914E-06"
+        izz="8.2781E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Gripper_Base.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Gripper_Base.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Gripper_Base_Joint"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="1.5708 0 3.1416" />
+    <parent
+      link="Link_4" />
+    <child
+      link="Gripper_Base" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="0"
+      upper="3.14"
+      effort="0.176"
+      velocity="3" />
+  </joint>
+  <link
+    name="Gear_1">
+    <inertial>
+      <origin
+        xyz="0.0055801 0.00060198 0.00099206"
+        rpy="0 0 0" />
+      <mass
+        value="0.0026944" />
+      <inertia
+        ixx="9.1847E-08"
+        ixy="9.4415E-09"
+        ixz="5.9164E-22"
+        iyy="3.7147E-07"
+        iyz="1.3235E-23"
+        izz="4.5613E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Gear_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Gear_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Gear_1_Joint"
+    type="revolute">
+    <origin
+      xyz="-0.029 -0.038 0.037984"
+      rpy="0 0 -1.6043" />
+    <parent
+      link="Gripper_Base" />
+    <child
+      link="Gear_1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+    <mimic
+      joint="Gear_2_Joint"
+      multiplier="1"
+      offset="0" />
+  </joint>
+  <link
+    name="Finger_1">
+    <inertial>
+      <origin
+        xyz="0.03189 0.0095132 2.2592E-08"
+        rpy="0 0 0" />
+      <mass
+        value="0.0055054" />
+      <inertia
+        ixx="1.8674E-07"
+        ixy="-3.8088E-07"
+        ixz="-6.6232E-12"
+        iyy="1.6277E-06"
+        iyz="1.2684E-11"
+        izz="1.7482E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Finger_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Finger_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Finger_1_Joint"
+    type="revolute">
+    <origin
+      xyz="0.024112 0.0024378 -0.0052579"
+      rpy="3.1416 0 0.43342" />
+    <parent
+      link="Gear_1" />
+    <child
+      link="Finger_1" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+    <mimic
+      joint="Gear_2_Joint"
+      multiplier="1"
+      offset="0" />
+  </joint>
+  <link
+    name="Gear_2">
+    <inertial>
+      <origin
+        xyz="-0.0057816 -0.00014626 0.00099206"
+        rpy="0 0 0" />
+      <mass
+        value="0.0025954" />
+      <inertia
+        ixx="9.8592E-08"
+        ixy="-4.4759E-08"
+        ixz="-2.0779E-21"
+        iyy="3.5606E-07"
+        iyz="-1.3367E-21"
+        izz="4.4773E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Gear_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Gear_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Gear_2_Joint"
+    type="revolute">
+    <origin
+      xyz="-0.0021 -0.038 0.037984"
+      rpy="0 0 1.7727" />
+    <parent
+      link="Gripper_Base" />
+    <child
+      link="Gear_2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.57"
+      upper="0"
+      effort="0.144"
+      velocity="3" />
+  </joint>
+  <link
+    name="Finger_2">
+    <inertial>
+      <origin
+        xyz="0.03189 0.0095132 2.2592E-08"
+        rpy="0 0 0" />
+      <mass
+        value="0.0055054" />
+      <inertia
+        ixx="1.8674E-07"
+        ixy="-3.8088E-07"
+        ixz="-6.6232E-12"
+        iyy="1.6277E-06"
+        iyz="1.2685E-11"
+        izz="1.7482E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Finger_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Finger_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Finger_2_Joint"
+    type="revolute">
+    <origin
+      xyz="-0.023525 -0.0027739 -0.0052579"
+      rpy="0 0 2.5324" />
+    <parent
+      link="Gear_2" />
+    <child
+      link="Finger_2" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+    <mimic
+      joint="Gear_2_Joint"
+      multiplier="1"
+      offset="0" />
+  </joint>
+  <link
+    name="Gripper_Base_Link_1">
+    <inertial>
+      <origin
+        xyz="0.0155 -5.7954E-14 0.0040922"
+        rpy="0 0 0" />
+      <mass
+        value="0.0016295" />
+      <inertia
+        ixx="7.4103E-09"
+        ixy="-8.265E-23"
+        ixz="1.7915E-21"
+        iyy="2.0996E-07"
+        iyz="5.9557E-23"
+        izz="2.1303E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Gripper_Base_Link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Gripper_Base_Link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Gripper_Base_Link_1_Joint"
+    type="revolute">
+    <origin
+      xyz="-0.021 -0.058 0.028634"
+      rpy="0 0 -1.5857" />
+    <parent
+      link="Gripper_Base" />
+    <child
+      link="Gripper_Base_Link_1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="1.57"
+      effort="0"
+      velocity="0" />
+    <mimic
+      joint="Gear_2_Joint"
+      multiplier="1"
+      offset="0" />
+  </joint>
+  <link
+    name="Gripper_Base_Link_2">
+    <inertial>
+      <origin
+        xyz="0.015359 5.0318E-05 0.0040922"
+        rpy="0 0 0" />
+      <mass
+        value="0.0016295" />
+      <inertia
+        ixx="7.4103E-09"
+        ixy="-2.3954E-21"
+        ixz="5.995E-22"
+        iyy="2.0996E-07"
+        iyz="3.3087E-23"
+        izz="2.1303E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Gripper_Base_Link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Small_Robot_Arm_URDF/meshes/Gripper_Base_Link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Gripper_Base_Link_2_Joint"
+    type="revolute">
+    <origin
+      xyz="-0.011001 -0.058149 0.028634"
+      rpy="0 0 -1.2345" />
+    <parent
+      link="Gripper_Base" />
+    <child
+      link="Gripper_Base_Link_2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.57"
+      upper="0"
+      effort="0"
+      velocity="0" />
+    <mimic
+      joint="Gear_2_Joint"
+      multiplier="1"
+      offset="0" />
+  </joint>
+</robot>
