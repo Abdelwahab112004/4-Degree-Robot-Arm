@@ -1,0 +1,137 @@
+%% ============================
+%  ROBOT 5 DOF + TRUE Workspace Extraction
+%  Fixed Max/Min Reach + Hollow Base Safe Filtering
+% ============================
+
+clear; clc; close all;
+deg2rad = @(x) x*pi/180;
+
+%% ============================
+%  DH Parameters
+% ============================
+
+L(1) = Link('d',158.93,'a',0,'alpha',deg2rad(-90),'qlim',deg2rad([-90 90]));
+L(2) = Link('d',0,'a',130,'alpha',0,'offset',deg2rad(-90),'qlim',deg2rad([-90 90]));
+L(3) = Link('d',0,'a',122.45,'alpha',deg2rad(90),'qlim',deg2rad([-90 90]));
+L(4) = Link('d',32.77,'a',0,'alpha',deg2rad(-90),'qlim',deg2rad([-90 90]));
+L(5) = Link('d',0,'a',127.86,'alpha',0,'qlim',deg2rad([-90 90]));
+
+RobotArm = SerialLink(L,'name','RoboRash Team Robot');
+
+%% ============================
+%  Home Pose
+% ============================
+
+RobotArm.plot(zeros(1,5),'workspace',[-600 600 -600 600 0 700],'scale',0.8);
+
+%% ============================
+%  Sobol Sampling
+% ============================
+
+numPoints = 110000;
+
+p = sobolset(5,'Skip',100,'Leap',500);
+p = scramble(p,'MatousekAffineOwen');
+U = net(p,numPoints);
+
+qlim = RobotArm.qlim;
+Q = zeros(numPoints,5);
+
+for i = 1:5
+    Q(:,i) = qlim(i,1) + U(:,i)*(qlim(i,2)-qlim(i,1));
+end
+
+%% ============================
+%  Fixed Max / Min Reach
+% ============================
+
+maxReach = 572.01;  % mm
+minReach = 60;   % mm
+fprintf('Fixed Max Reach = %.2f mm\n',maxReach);
+fprintf('Fixed Min Reach = %.2f mm\n',minReach);
+
+%% ============================
+%  Workspace Filtering
+% ============================
+
+workspace = zeros(numPoints,3);
+orient    = zeros(numPoints,3);
+Q_valid   = zeros(numPoints,5);
+colors    = zeros(numPoints,1);
+
+base_radius = 120;   % mm
+base_height = 85.5;  % mm
+tol = 0.1;           % tolerance for floating point
+
+validCount = 0;
+h = waitbar(0,'Extracting true workspace...');
+
+for i = 1:numPoints
+    T = RobotArm.fkine(Q(i,:));
+    pos = transl(T);
+
+    xyDist = norm(pos(1:2));
+    dist3D = norm(pos);
+
+    % --- Physical & Hollow Base Constraints ---
+    if (pos(3) >= 0) && (dist3D <= maxReach) && ...
+       ((pos(3) > base_height + tol) || (xyDist > base_radius + tol))
+
+        % --- Valid workspace ---
+        validCount = validCount + 1;
+        workspace(validCount,:) = pos;
+        rpy = tr2rpy(T.R);
+        orient(validCount,:) = rad2deg(rpy);
+        Q_valid(validCount,:) = Q(i,:);
+
+        % --- Coloring based on fixed min/max ---
+        ratio = (dist3D - minReach)/(maxReach - minReach);
+        ratio = min(max(ratio,0),1);
+
+        if ratio < 0.33
+            colors(validCount) = 1;
+        elseif ratio < 0.66
+            colors(validCount) = 2;
+        else
+            colors(validCount) = 3;
+        end
+    end
+
+    if mod(i,5000)==0
+        waitbar(i/numPoints,h);
+    end
+end
+close(h);
+
+workspace = workspace(1:validCount,:);
+orient    = orient(1:validCount,:);
+Q_valid   = Q_valid(1:validCount,:);
+colors    = colors(1:validCount);
+
+disp(['Valid workspace points: ',num2str(validCount)]);
+
+%% ============================
+%  Visualization
+% ============================
+
+figure; hold on;
+scatter3(workspace(colors==1,1),workspace(colors==1,2),workspace(colors==1,3),10,'g','filled');
+scatter3(workspace(colors==2,1),workspace(colors==2,2),workspace(colors==2,3),10,'b','filled');
+scatter3(workspace(colors==3,1),workspace(colors==3,2),workspace(colors==3,3),10,'r','filled');
+
+xlabel('X'); ylabel('Y'); zlabel('Z');
+title('Fixed Max/Min Reach Hollow Workspace – RoboRash Team Robot');
+axis equal; grid on; view(135,35);
+
+%% ============================
+%  Export Data
+% ============================
+
+data = [workspace orient Q_valid];
+headers = {'X','Y','Z','Roll','Pitch','Yaw','Q1','Q2','Q3','Q4','Q5'};
+filename = 'FixedReach_Workspace_Data.xlsx';
+
+writecell(headers,filename,'Sheet',1,'Range','A1');
+writematrix(data,filename,'Sheet',1,'Range','A2');
+
+disp(['Workspace exported to ',filename]);
